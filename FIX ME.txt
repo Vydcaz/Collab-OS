@@ -1,2 +1,2 @@
 FIX ME
-- 
+- layering errors when more than one window is open
