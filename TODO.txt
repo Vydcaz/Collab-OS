@@ -1,0 +1,6 @@
+TODO
+- fix file sys
+- add text engine
+- add log system/developer tool system
+- work on the settings program
+- make all windows work like the update made to the terminal
