@@ -2,8 +2,8 @@ name: Build SB3 into Website
 
 on:
   push:
-    paths:
-      - "Col-OS (mistwarp).sb3"
+    branches:
+      - main
 
 jobs:
   build:
