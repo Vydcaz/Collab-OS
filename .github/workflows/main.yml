@@ -13,16 +13,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Download TurboWarp Packager
+      - name: Download TurboWarp Packager CLI
         run: |
           mkdir packager
-          curl -L -o packager.zip "https://packager.turbowarp.org/desktop/latest/linux.zip"
+          curl -L -o packager.zip "https://github.com/TurboWarp/packager/releases/latest/download/turbowarp-packager-linux.zip"
           unzip packager.zip -d packager
+          chmod +x packager/turbowarp-packager
 
       - name: Convert SB3 to HTML
         run: |
           mkdir build
-          ./packager/turbowarp-packer \
+          ./packager/turbowarp-packager \
             --input "Col-OS (mistwarp).sb3" \
             --output build/index.html \
             \
