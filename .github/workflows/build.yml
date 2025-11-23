@@ -1,0 +1,45 @@
+name: Build SB3 into Website
+
+on:
+  push:
+    paths:
+      - "Col-OS (mistwarp).sb3"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Download TurboWarp Packager
+        run: |
+          mkdir packager
+          curl -L -o packager.zip "https://packager.turbowarp.org/desktop/latest/linux.zip"
+          unzip packager.zip -d packager
+
+      - name: Convert SB3 to HTML
+        run: |
+          mkdir build
+          ./packager/turbowarp-packer \
+            --input "Col-OS (mistwarp).sb3" \
+            --output build/index.html \
+            \
+            --turbo \
+            --framerate 60 \
+            --interpolation \
+            --hqpen \
+            --infinite-clones \
+            --remove-fencing \
+            --remove-misc-limits \
+            \
+            --controls pause,fullscreen,greenflag \
+            --autostart
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build
+
